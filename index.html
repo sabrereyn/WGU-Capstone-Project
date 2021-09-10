@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+    <title>Butterfly Recognition App</title>
+  </head>
+  <body>
+    <h1>Butterfly Recognition <i class="fas fa-camera-retro"></i></h1>
+
+    <div id="tab-group">
+      <button
+        class="tab-link"
+        onclick="openPage('Home', this)"
+        id="defaultOpen"
+      >
+        Home
+      </button>
+      <button class="tab-link" onclick="openPage('Predict', this)">
+        Predict
+      </button>
+      <button
+        class="tab-link"
+        onclick="openPage('Visualization', this), visualLoad()"
+      >
+        Visualization
+      </button>
+    </div>
+
+    <div id="Home" class="tab-content">
+      <h2>Welcome to Epsilon's Butterfly House</h2>
+      <div class="home-imgs">
+        <img src="./image/adonis.jpg" alt="adonis" />
+        <img src="./image/indoor_gardenhouse.jpg" alt="indoor gardenhouse" />
+        <img src="./image/indra swallow.jpg" alt="indra swallow" />
+      </div>
+      <p>
+        Thank you for deciding to stay with us and for touring our Butterfly
+        House. This app was made to predict what type of butterfly you took a
+        picture of while touring our own Butterfly House. This works only with
+        the species of butterflies that we have housed, thus uploading images of
+        things other than our butterflies will yield less favorable results.
+      </p>
+
+      <div class="steps">
+        <h3>Steps to Identify Butterflies</h3>
+        <ul>
+          <li>Tour the Butterfly House</li>
+          <li>Take pictures</li>
+          <li>
+            Upload picture under 'Predict' tab to get name and confidence score
+          </li>
+          <li>Take a look at visual plots under 'Visualization'</li>
+          <li>Most of all... <strong>Enjoy!</strong></li>
+        </ul>
+      </div>
+
+      <p id="warning">
+        * Please do not harm our butterflies. Doing so will result in a fine and
+        a ban from this property and its events.
+      </p>
+    </div>
+
+    <div id="Predict" class="tab-content">
+      <!-- Input element for uploading Image files (accepted extensions = .png, .jpg, .jpeg) -->
+      <input
+        type="file"
+        name="uploadImage"
+        id="uploadImage"
+        accept=".png, .jpg, .jpeg"
+      />
+      <div class="row">
+        <div class="box">
+          <!-- Image Box which displays the Uploaded image -->
+          <img src="" alt="" id="image" width="224" height="224" />
+        </div>
+
+        <div class="box box-result">
+          <div>
+            <h2>The name of this butterfly is:</h2>
+            <h2><span class="pred_class"></span></h2>
+          </div>
+          <div class="accuracy">
+            <!--  Simple progress bar which indicates the accuracy for the predicted class -->
+            <div class="progress" id="progress">
+              <div class="inner"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="prev-results-h2">Previous Predictions</h2>
+
+      <div id="prev-results"></div>
+    </div>
+
+    <div id="Visualization" class="tab-content">
+      <p id="visual-msg">
+        There's nothing to show. Please make a prediction first.
+      </p>
+      <h2 class="text-result">Top Three Predictions for Current Image</h2>
+      <div id="plot-result" class="plots"></div>
+      <h2 class="text-result">Predictions for Each Sessions</h2>
+
+      <div id="plot-scatter" class="plots"></div>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/50d95cb427.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
+
+    <script src="model.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
